@@ -19,6 +19,13 @@ Then browse to http://localhost/.  Use `Ctrl+C` to exit the running process.
 
 The container is also running on a Digital Ocean VM and the site is viewable at http://icecream.timtom.wtf/.
 
+The full command (minus the api key) to start the docker image on the server is:
+```
+docker run -d --restart unless-stopped -p 443:443 --name icecream -p 80:8080 --env API_KEY=<Yelp api key> -v /etc/letsencrypt/archive/icecream.timtom.wtf:/certs:ro cokert/icecream
+```
+The documentation for Let's Encrypt/Cerbot says the certs live at /etc/letsencrypt/live/icecream.timtom.wtf, but the files there are symlinks -- they actually live in the folder listed in the volume parameter above.  Mounting a folder with symlinks causes the container to get file not found errors.  Hence, mounting the folder where they actually live and using their real names in `server.js` to read them.
+
 ## Http/https and geolocation
 
-The geolocation API requires requests to come over `https`, so in the live version, the "use corrent location" link doesn't work.  This is functional when running locally, either as a docker container or from source.
+~~The geolocation API requires requests to come over `https`, so in the live version, the "use corrent location" link doesn't work.  This is functional when running locally, either as a docker container or from source.~~
+The server is now configured with a Let's Encrypt cert and middleware is in place to redirect to https when the certs are found.
