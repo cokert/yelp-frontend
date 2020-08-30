@@ -4,7 +4,7 @@ Initialized from https://github.com/cokert/simple-react-full-stack (which is a f
 
 ## Running locally
 
-You can run with `npm run dev`.  The app will crash and exit immediately if there is not an environment variable named `API_KEY` available to the `node` process.  You can set it via `export API_KEY=<your Yelp api key>` then run `npm run dev` or specify it in line with `API_KEY=<your Yelp api key> npm run dev`.
+After cloning this repo, you need to run `npm install`.  You can then run with `npm run dev`, at which point the app/node server will likely crash.  It looks for an `API_KEY` variable in the node process's environment and exits immediately if its not there or is blank.  You can set it via `export API_KEY=<your Yelp api key>` then run `npm run dev` or specify it in line with `API_KEY=<your Yelp api key> npm run dev`.
 
 ## Running as a docker image
 
