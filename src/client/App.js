@@ -53,11 +53,12 @@ export default function App() {
   }
 
   function locateMe() {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    console.log('locating...');
+    navigator.geolocation.getCurrentPosition((position) => {
       console.log(position);
       let location = "coords: " + position.coords.latitude + " " + position.coords.longitude;
       setValue('location', location)
-    });
+    }, (error) => console.log(`error getting location: ${error}`));
   }
 
   return (
@@ -77,7 +78,7 @@ export default function App() {
           </Col>
           <Col>
             <FormLabel>
-              Location<a onClick={locateMe}><img src={locateIcon} className='img-fluid' style={{height: '20px'}} alt='Locate Me' /><small>Click to use current location</small></a>
+              Location<a onClick={locateMe}><img src={locateIcon} className='img-fluid' style={{ height: '20px' }} alt='Locate Me' /><small>Click to use current location</small></a>
             </FormLabel>
             <DebounceInput className="form-control" debounceTimeout={debounceTimeout} value={searchParams.location} onChange={(e) => setValue("location", e.target.value)}></DebounceInput>
           </Col>
