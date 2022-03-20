@@ -1,4 +1,4 @@
-# adp-likes-ice-cream
+yelp front end
 
 Initialized from https://github.com/cokert/simple-react-full-stack (which is a fork of https://github.com/crsandeep/simple-react-full-stack with extra changes from https://github.com/Mirarsoft/simple-react-full-stack).
 
@@ -8,20 +8,20 @@ After cloning this repo, you need to run `npm install`.  You can then run with `
 
 ## Running as a docker image
 
-The built container is available as a docker image as well at `cokert/icecream`.  To run that version, just run this command: 
+The built container is available as a docker image as well at `cokert/yelp`.  To run that version, just run this command: 
 ```
-docker run -it -p 80:8080 --rm --env API_KEY=<your Yelp apy key> cokert/icecream
+docker run -it -p 80:8080 --rm --env API_KEY=<your Yelp apy key> cokert/yelp
 ```
 Then browse to http://localhost/.  Use `Ctrl+C` to exit the running process.
 
 
 ## Live version
 
-The container is also running on a Digital Ocean VM and the site is viewable at http://icecream.timtom.wtf/.
+The container is also running on a Digital Ocean VM and the site is viewable at http://yelp.timtom.wtf/.
 
 The full command (minus the api key) to start the docker image on the server is:
 ```
-docker run -d --restart unless-stopped -p 443:443 --name icecream -p 80:8080 --env API_KEY=<Yelp api key> -v /etc/letsencrypt/archive/icecream.timtom.wtf:/certs:ro cokert/icecream
+docker run -d --restart unless-stopped -p 443:443 --name yelp -p 80:8080 --env API_KEY=<Yelp api key> -v /etc/letsencrypt/archive/yelp.timtom.wtf:/certs:ro cokert/yelp
 ```
 The documentation for Let's Encrypt/Cerbot says the certs live at /etc/letsencrypt/live/icecream.timtom.wtf, but the files there are symlinks -- they actually live in the folder listed in the volume parameter above.  Mounting a folder with symlinks causes the container to get file not found errors.  Hence, mounting the folder where they actually live and using their real names in `server.js` to read them.
 
