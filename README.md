@@ -8,7 +8,7 @@ After cloning this repo, you need to run `npm install`.  You can then run with `
 
 ## Running as a docker image
 
-The built container is available as a docker image as well at `cokert/yelp`.  To run that version, just run this command: 
+The built container is available as a docker image as well at `cokert/yelp`.  To run that version, just run this command:
 ```
 docker run -it -p 80:8080 --rm --env API_KEY=<your Yelp apy key> cokert/yelp
 ```
@@ -21,9 +21,9 @@ The container is also running on a Digital Ocean VM and the site is viewable at 
 
 The full command (minus the api key) to start the docker image on the server is:
 ```
-docker run -d --restart unless-stopped -p 443:443 --name yelp -p 80:8080 --env API_KEY=<Yelp api key> -v /etc/letsencrypt/archive/yelp.timtom.wtf:/certs:ro cokert/yelp
+docker run -d --restart unless-stopped -p 443:443 --name yelp -p 80:8080 --env SITE_NAME=<site name> --env API_KEY=<Yelp api key> -v /etc/letsencrypt/:/certs:ro cokert/yelp
 ```
-The documentation for Let's Encrypt/Cerbot says the certs live at /etc/letsencrypt/live/icecream.timtom.wtf, but the files there are symlinks -- they actually live in the folder listed in the volume parameter above.  Mounting a folder with symlinks causes the container to get file not found errors.  Hence, mounting the folder where they actually live and using their real names in `server.js` to read them.
+The site name is used to load the proper cert from let's encrypt/certbot's store (a previous version of this repo mounted the letsencrypt folder in a way that broke the symlinks which is now fixed).  For auto-renewal to work you need to put scripts in /etc/letsencrypt/rewnewal-hooks/pre and /etc/letsencrypt/renewal-hooks/post to stop/start the container.  They can just contain `docker stop yelp` and `docker start yelp`.  The names don't really matter, but they must be executable to be run.
 
 ## Http/https and geolocation
 

@@ -9,8 +9,8 @@ let certOptions = undefined;
 
 try {
   certOptions = {
-    key: fs.readFileSync("/certs/privkey1.pem").toString(),
-    cert: fs.readFileSync("/certs/cert1.pem").toString(),
+    key: fs.readFileSync(`/certs/live/${process.env.SITE_NAME}/privkey.pem`).toString(),
+    cert: fs.readFileSync(`/certs/live/${process.env.SITE_NAME}/fullchain.pem`).toString(),
   };
 } catch (e) {
   console.log(
